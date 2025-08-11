@@ -1,0 +1,20 @@
+# packages/api/nixpacks.toml
+
+[variables]
+NODE_ENV = "production"
+
+[phases.setup]
+# Use Node 20 and pnpm 9 in the build image
+nixPkgs = ["nodejs-20_x", "pnpm-9_x"]
+
+[phases.install]
+# Install workspace deps from the repo root
+cmds = ["cd ../.. && pnpm install --frozen-lockfile=false"]
+
+[phases.build]
+# Build only the API package
+cmds = ["cd ../.. && pnpm --filter @carelink/api build"]
+
+[start]
+# Railway provides PORT; your code already uses it
+cmd = "node dist/index.js"
