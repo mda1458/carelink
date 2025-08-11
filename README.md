@@ -54,7 +54,8 @@ pnpm dev
 Create `.env.local` with these required variables:
 
 ```bash
-# Authentication
+# Authentication (32+ character secrets)
+ROLE_COOKIE_SECRET="your-super-secure-role-cookie-secret-here"
 JWT_SECRET="your-super-secure-jwt-secret-here"
 
 # API Configuration
@@ -62,6 +63,16 @@ NEXT_PUBLIC_API_BASE_URL="http://localhost:3001"
 
 # Optional: Sentry for error monitoring
 SENTRY_DSN="your-sentry-dsn-here"
+```
+
+### Quick Secret Generation
+
+```bash
+# Generate secure secrets
+ROLE_COOKIE_SECRET=$(openssl rand -base64 32)
+JWT_SECRET=$(openssl rand -base64 32)
+echo "ROLE_COOKIE_SECRET=$ROLE_COOKIE_SECRET"
+echo "JWT_SECRET=$JWT_SECRET"
 ```
 
 ## 🛡️ Security & Compliance

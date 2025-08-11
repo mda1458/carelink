@@ -1,0 +1,18 @@
+
+
+> @carelink/api@0.2.0 lint /Users/danish/Downloads/carelink_monorepo_stage1_plus_ci_v9/packages/api
+> eslint .
+
+
+Oops! Something went wrong! :(
+
+ESLint: 9.33.0
+
+A configuration object specifies rule "react/button-has-type", but could not find plugin "react".
+
+Common causes of this problem include:
+
+1. The "react" plugin is not defined in your configuration file.
+2. The "react" plugin is not defined within the same configuration object in which the "react/button-has-type" rule is applied.
+
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m

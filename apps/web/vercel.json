@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd ../.. && pnpm build --filter @carelink/web",
+  "outputDirectory": ".next",
+  "installCommand": "cd ../.. && pnpm install",
+  "env": {
+    "ROLE_COOKIE_SECRET": "@role-cookie-secret",
+    "JWT_SECRET": "@jwt-secret",
+    "NEXT_PUBLIC_API_BASE_URL": "@next-public-api-base-url",
+    "SENTRY_DSN": "@sentry-dsn"
+  }
+}

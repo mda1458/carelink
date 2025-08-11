@@ -1,0 +1,5 @@
+
+
+> @carelink/platform@ typecheck /Users/danish/Downloads/carelink_monorepo_stage1_plus_ci_v9/apps/platform
+> tsc --noEmit
+

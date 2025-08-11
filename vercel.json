@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "apps/web/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "outputDirectory": "apps/web/.next"
+      }
+    },
+    {
+      "src": "apps/platform/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "outputDirectory": "apps/platform/.next"
+      }
+    },
+    {
+      "src": "apps/telehealth/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "outputDirectory": "apps/telehealth/.next"
+      }
+    },
+    {
+      "src": "apps/app/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "outputDirectory": "apps/app/.next"
+      }
+    },
+    {
+      "src": "packages/api/package.json",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["packages/api/src/**"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/v1/(.*)",
+      "dest": "/packages/api/src/index.js"
+    },
+    {
+      "src": "/platform/(.*)",
+      "dest": "/apps/platform/$1"
+    },
+    {
+      "src": "/telehealth/(.*)",
+      "dest": "/apps/telehealth/$1"
+    },
+    {
+      "src": "/app/(.*)",
+      "dest": "/apps/app/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/apps/web/$1"
+    }
+  ],
+  "env": {
+    "ROLE_COOKIE_SECRET": "@role-cookie-secret",
+    "JWT_SECRET": "@jwt-secret",
+    "NEXT_PUBLIC_API_BASE_URL": "@next-public-api-base-url",
+    "SENTRY_DSN": "@sentry-dsn"
+  },
+  "functions": {
+    "packages/api/src/index.js": {
+      "includeFiles": "packages/api/src/**"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/health",
+      "destination": "/api/v1/health"
+    }
+  ]
+}
