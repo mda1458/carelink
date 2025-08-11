@@ -1,0 +1,19 @@
+name: Semgrep
+on:
+  pull_request: { branches: [main] }
+  push: { branches: [main] }
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: returntocorp/semgrep-action@v1
+        with:
+          config: p/ci
+          generateSarif: true
+          auditOn: push
+          publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}
+      - name: Fail on High severity
+        run: |
+          if grep -q '"severity":"ERROR"' semgrep.sarif 2>/dev/null; then
+            echo "Semgrep high severity issues found"; exit 1; else echo "Semgrep clean"; fi

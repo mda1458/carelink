@@ -1,0 +1,13 @@
+# Default owners
+* @your-org/eng-leads
+
+# Apps
+/apps/web/ @your-org/web-team
+/apps/platform/ @your-org/platform-team
+/apps/telehealth/ @your-org/telehealth-team
+
+# Packages
+/packages/ui/ @your-org/design-system
+/packages/utils/ @your-org/platform-team
+/packages/api/ @your-org/backend-team
+/packages/copilot/ @your-org/ai-team

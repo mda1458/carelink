@@ -1,0 +1,15 @@
+hipaa:
+  - id: AT-1
+    control: Audit trail for CRUD on PHI
+    implemented_by:
+      - packages/api/src/middleware/auditTrail.ts
+      - .github/workflows/semgrep.yml
+  - id: DR-1
+    control: Data retention and purge
+    implemented_by:
+      - packages/api/src/jobs/retention.ts
+soc2:
+  - id: CC-1
+    control: Access control via RBAC
+    implemented_by:
+      - apps/*/middleware.ts

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@carelink/ui/*": [
+        "packages/ui/src/*"
+      ],
+      "@carelink/utils/*": [
+        "packages/utils/src/*"
+      ],
+      "@carelink/api/*": [
+        "packages/api/src/*"
+      ],
+      "@carelink/copilot/*": [
+        "packages/copilot/src/*"
+      ]
+    }
+  }
+}

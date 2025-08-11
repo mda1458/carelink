@@ -1,0 +1,20 @@
+name: SBOM and Grype
+on:
+  pull_request: { branches: [main] }
+  workflow_dispatch:
+jobs:
+  sbom_grype:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Syft
+        uses: anchore/sbom-action/download-syft@v0
+      - name: Generate SBOM
+        run: syft packages dir:. -o spdx-json > sbom.spdx.json
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with: { name: sbom, path: sbom.spdx.json }
+      - name: Install Grype
+        uses: anchore/scan-action/download-grype@v3
+      - name: Scan with Grype (fail on High/Critical)
+        run: grype dir:. --fail-on High || (echo 'Vulns found'; exit 1)

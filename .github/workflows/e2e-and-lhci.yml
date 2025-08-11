@@ -1,0 +1,40 @@
+name: E2E and Lighthouse
+on:
+  pull_request: { branches: [main] }
+  workflow_dispatch:
+jobs:
+  e2e_and_lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: "pnpm" }
+      - run: pnpm i
+      - name: Build web app
+        run: pnpm --filter @carelink/web build
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright (apps/web)
+        working-directory: apps/web
+        run: pnpm test:e2e
+      - name: Start web (background)
+        working-directory: apps/web
+        run: nohup pnpm start &
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000
+      - name: Run Lighthouse CI
+        run: npx lhci autorun --collect.url=http://localhost:3000/ --collect.url=http://localhost:3000/login --assert.assertions.categories:performance=error:0.95
+
+      - name: Bundle budgets (web)
+        run: pnpm --filter @carelink/web build && APP=@carelink/web pnpm bundle:check
+
+      - name: Bundle budgets (platform)
+        run: pnpm --filter @carelink/platform build && APPS=@carelink/platform pnpm bundle:check
+
+      - name: Bundle budgets (telehealth)
+        run: pnpm --filter @carelink/telehealth build && APPS=@carelink/telehealth pnpm bundle:check
+
+      - name: Bundle budgets (app)
+        run: pnpm --filter @carelink/app build && APPS=@carelink/app pnpm bundle:check
