@@ -16,7 +16,7 @@ jobs:
         with: { node-version: 20, cache: "pnpm" }
       - run: pnpm i
       - run: pnpm typecheck
-      - run: pnpm lint --max-warnings=0
+      - run: pnpm lint -- --max-warnings=0
       - run: pnpm -w build
       - run: pnpm test
 

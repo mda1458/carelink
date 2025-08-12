@@ -105,7 +105,7 @@ jobs:
       - name: Run security checks
         run: |
           pnpm typecheck
-          pnpm lint --max-warnings=0
+          pnpm lint -- --max-warnings=0
           pnpm node scripts/license-check.mjs
 
       - name: Build all apps
