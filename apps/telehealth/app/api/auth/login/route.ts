@@ -45,6 +45,7 @@ export async function POST(request: Request) {
         return Response.json({ error: "Invalid credentials" }, { status: 401 });
 
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Login error:", error);
         return Response.json({ error: "Internal server error" }, { status: 500 });
     }

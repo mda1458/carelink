@@ -14,7 +14,8 @@ export async function POST(req: Request) {
     if (typeof file.size !== "number" || !isSizeAllowed(file.size)) return json({ ok:false, error:"Invalid size" }, 413);
     const filename = sanitizeName(file.name || "upload.bin"); return json({ ok:true, filename, mime, size:file.size }, 200);
   } catch (error) {
-    console.error('Upload error:', error);
+    // eslint-disable-next-line no-console
+        console.error('Upload error:', error);
     return json({ ok: false, error: `Upload failed: ${error instanceof Error ? error.message : 'Unknown error'}` }, 500);
   }
 }

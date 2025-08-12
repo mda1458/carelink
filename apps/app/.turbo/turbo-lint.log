@@ -1,18 +1,18 @@
 
 
 > @carelink/app@ lint /Users/danish/Downloads/carelink_monorepo_stage1_plus_ci_v9/apps/app
-> eslint .
+> eslint . "--max-warnings=0"
 
+=============
 
-Oops! Something went wrong! :(
+WARNING: You are currently running a version of TypeScript which is not officially supported by @typescript-eslint/typescript-estree.
 
-ESLint: 9.33.0
+You may find that it works just fine, or you may not.
 
-A configuration object specifies rule "react/button-has-type", but could not find plugin "react".
+SUPPORTED TYPESCRIPT VERSIONS: >=4.7.4 <5.6.0
 
-Common causes of this problem include:
+YOUR TYPESCRIPT VERSION: 5.9.2
 
-1. The "react" plugin is not defined in your configuration file.
-2. The "react" plugin is not defined within the same configuration object in which the "react/button-has-type" rule is applied.
+Please only submit bug reports when using the officially supported version.
 
-[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 2.[39m
+=============

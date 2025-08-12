@@ -21,6 +21,7 @@ export async function POST() {
         });
 
     } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Logout error:", error);
         return Response.json({ error: "Internal server error" }, { status: 500 });
     }

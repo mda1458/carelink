@@ -14,4 +14,7 @@ app.get("/v1/version", (_req: Request, res: Response) =>
 app.get("/v1/openapi.json", (_req: Request, res: Response) => res.json(openapi));
 
 const port = process.env.PORT || 4000;
-app.listen(port, () => console.log(`API listening on ${port}`));
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`API listening on ${port}`);
+});
