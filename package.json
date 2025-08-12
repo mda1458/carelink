@@ -1,7 +1,6 @@
 {
   "name": "carelink-monorepo",
   "private": true,
-  "packageManager": "pnpm@9.4.0",
   "scripts": {
     "prebuild": "node scripts/no-ellipsis-check.mjs",
     "build": "turbo run build",
