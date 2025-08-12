@@ -4,7 +4,10 @@
     "composite": true,
     "outDir": "dist",
     "types": ["node"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "noEmit": false,
+    "module": "CommonJS",
+    "moduleResolution": "Node"
   },
   "include": ["src"]
 }
