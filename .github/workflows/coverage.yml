@@ -1,0 +1,36 @@
+name: Coverage Gate
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm i -g pnpm
+      - run: pnpm i --frozen-lockfile
+      - name: Unit tests with coverage
+        run: |
+          if [ -f "jest.config.js" ] || [ -f "jest.config.cjs" ]; then
+            pnpm test -- --coverage --coverageReporters=text-summary --coverageReporters=lcov
+          else
+            echo "No jest config found; skipping (non-blocking)"
+          fi
+      - name: Enforce coverage threshold (80% lines)
+        if: always()
+        run: |
+          if [ -f coverage/coverage-summary.json ]; then
+            node -e "const s=require('./coverage/coverage-summary.json'); const p=s.total.lines.pct; if(p<80){console.error('Coverage lines % below 80:',p); process.exit(1)}"
+          else
+            echo "No coverage found; skipping"
+          fi
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage

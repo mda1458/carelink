@@ -1,4 +1,4 @@
-import { roleCookieName, signRoleCookie } from "@/lib/roleCookie";
+import { roleCookieName, signRoleCookie, type Role } from "@/lib/roleCookie";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         if (email === "demo@example.com" && password === "demo123") {
             // Sign the role cookie
             const cookieValue = await signRoleCookie({
-                role: role as any,
+                role: role as Role,
                 sub: `user_${Date.now()}`
             });
 

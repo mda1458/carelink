@@ -1,0 +1,18 @@
+name: Lighthouse CI
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lhci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm i -g pnpm
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm -C apps/web build && pnpm -C apps/web export
+      - name: Run Lighthouse CI (static export)
+        run: npx @lhci/cli autorun --config=./lighthouserc.json
