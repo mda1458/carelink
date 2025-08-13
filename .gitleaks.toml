@@ -1,0 +1,8 @@
+title = "Carelink Gitleaks Config"
+[allowlist]
+description = "Allowed patterns"
+paths = [
+  "package-lock.json",
+  "pnpm-lock.yaml"
+]
+# Keep default rules; customize if needed.

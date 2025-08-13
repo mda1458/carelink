@@ -1,0 +1,8 @@
+Auto-fixes applied:
+- Resolved middleware merge & removed all *.merge artifacts
+- Wired @next/bundle-analyzer in apps/web/next.config.*
+- Added openapi/openapi.json (synthetic build for /auth/login)
+- Added Jest config + unit tests for validate() and RBAC
+- Replaced 1 files of console.log/debug with logger
+- Reduced ': any' in 0 utils files
+- Converted 0 occurrences of @ts-ignore to @ts-expect-error

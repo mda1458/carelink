@@ -1,6 +1,0 @@
-{
-  "version": "0.2",
-  "language": "en",
-  "words": ["Upstash", "Playwright", "Lighthouse", "Zod", "OpenTelemetry", "OTLP", "RBAC"],
-  "ignorePaths": ["node_modules", "dist", ".next", "coverage", ".turbo"]
-}

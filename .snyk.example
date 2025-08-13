@@ -1,0 +1,7 @@
+# Example Snyk policy — copy to `.snyk` and tailor, use expiry dates.
+ignore:
+  SNYK-JS-EXAMPLE-12345:
+    - reason: "Dependency pinned by framework; safe until upstream fix."
+      expires: 2025-12-31T23:59:59Z
+      path:
+        - apps/web > next > some-transitive
