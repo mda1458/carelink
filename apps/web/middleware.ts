@@ -1,20 +1,28 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { roleCookieName, verifyRoleCookie } from "./src/lib/roleCookie";
-
-export const config = { matcher: ["/protected/:path*"] };
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { limit } from "packages/utils/src/rateLimit"; // adjust path alias if needed
 
 export async function middleware(req: NextRequest) {
-  const url = new URL(req.url);
-  const sig = req.cookies.get(roleCookieName())?.value;
-  if (sig) {
-    const v = await verifyRoleCookie(sig);
-    if (v && v.role && v.role !== "guest") return NextResponse.next();
+  // Only rate-limit API routes
+  if (req.nextUrl.pathname.startsWith("/api")) {
+    const ip = req.ip ?? req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+    const key = `ip:${ip}:path:${req.nextUrl.pathname}`;
+    const { success, limit: l, remaining, reset } = await limit(key);
+
+    const res = NextResponse.next();
+    res.headers.set("X-RateLimit-Limit", String(l));
+    res.headers.set("X-RateLimit-Remaining", String(remaining));
+    res.headers.set("X-RateLimit-Reset", String(reset));
+
+    if (!success) {
+      return new NextResponse("Too Many Requests", { status: 429, headers: res.headers });
+    }
+    return res;
   }
-  if (process.env.NODE_ENV !== "production") {
-    const devRole = req.cookies.get("role")?.value;
-    if (devRole && ["admin", "employer", "clinician"].includes(devRole)) return NextResponse.next();
-  }
-  const login = new URL("/login", req.url);
-  login.searchParams.set("returnTo", url.pathname);
-  return NextResponse.redirect(login);
+
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/api/:path*"],
+};

@@ -1,0 +1,9 @@
+.DS_Store
+node_modules
+.next
+dist
+out
+coverage
+.env.local
+.env
+lhci_reports

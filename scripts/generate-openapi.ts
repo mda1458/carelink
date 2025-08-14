@@ -1,4 +1,4 @@
-import { logger } from '../packages/utils/src/logger';
+import { logger } from 'packages/utils/src/logger';
 /**
  * Generates OpenAPI 3.0 from Zod schemas using zod-to-openapi.
  * Usage: pnpm openapi:build
@@ -21,7 +21,7 @@ registry.registerPath({
     body: {
       content: {
         "application/json": {
-          schema: LoginRequest
+          schema: registry.getSchema("LoginRequest")
         }
       }
     }
@@ -31,7 +31,7 @@ registry.registerPath({
       description: "Successful login",
       content: {
         "application/json": {
-          schema: LoginResponse
+          schema: registry.getSchema("LoginResponse")
         }
       }
     }
@@ -48,4 +48,4 @@ const doc = generator.generateDocument({
 const outDir = path.join(process.cwd(), "openapi");
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, "openapi.json"), JSON.stringify(doc, null, 2));
-logger.info("✓ Wrote openapi/openapi.json");
+logger.log("✓ Wrote openapi/openapi.json");

@@ -1,7 +1,6 @@
 # Phase 3 — Contracts, Observability, RBAC & Audit Log
 
 This pack adds:
-
 - Zod → OpenAPI generation (`scripts/generate-openapi.ts`)
 - Next.js bundle analyzer wiring
 - OpenTelemetry stubs for tracing
@@ -9,15 +8,12 @@ This pack adds:
 - Append-only audit log via Upstash Redis Streams
 
 ## Install
-
 ```bash
 pnpm add -D @asteasolutions/zod-to-openapi openapi-typescript @next/bundle-analyzer
 pnpm add @opentelemetry/api @opentelemetry/sdk-node @opentelemetry/auto-instrumentations-node   @opentelemetry/exporter-trace-otlp-http
 pnpm add @upstash/redis
 ```
-
 Add scripts to root package.json:
-
 ```json
 {
   "scripts": {
@@ -26,9 +22,7 @@ Add scripts to root package.json:
   }
 }
 ```
-
 Env additions:
-
 ```
 OTEL_EXPORTER_OTLP_ENDPOINT=
 OTEL_EXPORTER_OTLP_HEADERS=
@@ -37,14 +31,11 @@ UPSTASH_REDIS_REST_TOKEN=
 ```
 
 Wire analyzer in `apps/web/next.config.mjs`:
-
 ```js
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
 });
-module.exports = withBundleAnalyzer({
-  /* existing config */
-});
+module.exports = withBundleAnalyzer({ /* existing config */ });
 ```
 
 Add `instrumentation.ts` to apps where you want tracing (example included).

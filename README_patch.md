@@ -1,7 +1,6 @@
 # Carelink Enhancement PR Pack
 
 This folder contains drop-in utilities and CI/docs to implement:
-
 - Full request validation (Zod helper)
 - CSRF (double-submit cookie)
 - Distributed rate limiting (Upstash Redis)
@@ -22,13 +21,11 @@ This folder contains drop-in utilities and CI/docs to implement:
    - Merge `.gitignore.additions.txt` into your `.gitignore`
 
 2. **Install deps**
-
    ```bash
    pnpm add @upstash/ratelimit @upstash/redis pino zod
    ```
 
 3. **Set environment variables** (Vercel/host + local `.env.local`):
-
    ```
    UPSTASH_REDIS_REST_URL=
    UPSTASH_REDIS_REST_TOKEN=
@@ -58,7 +55,6 @@ This folder contains drop-in utilities and CI/docs to implement:
    ```
 
 ## Scoring impact (est.)
-
 - +28 Type Safety & Security from full Zod validation (once applied across routes)
 - +20 Security/Architecture from distributed rate limiting
 - +14 Security from CSRF on cookie flows

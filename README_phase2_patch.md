@@ -1,7 +1,6 @@
 # Phase 2 — Quality Gates & Testing PR Pack
 
 This pack adds:
-
 - **Lighthouse CI** budgets (LCP/TBT/CLS) + workflow
 - **Playwright** E2E, a11y (axe), and visual baseline tests + workflow
 - **Gitleaks** secret scanning workflow + config
@@ -10,7 +9,6 @@ This pack adds:
 - **Stryker** config for mutation testing (utils)
 
 ## Integration steps
-
 1. Copy files into the repo preserving paths.
 2. Install required dev deps:
    ```bash

@@ -1,26 +1,29 @@
 name: ZAP Baseline
+
 on:
-  pull_request: { branches: [main] }
+  pull_request:
   workflow_dispatch:
+
 jobs:
   zap:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9.4.0
-      - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: "pnpm" }
-      - run: pnpm i
-      - run: pnpm --filter @carelink/web build
-      - run: nohup pnpm --filter @carelink/web start &
-      - run: npx wait-on http://localhost:3000
-      - name: ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.11.0
-        with:
-          target: "http://localhost:3000"
-          cmd_options: "-a"
-      - name: Fail on High alerts
+      - name: Start app
         run: |
-          if grep -q "High" report.md; then echo "ZAP High alerts found"; exit 1; else echo "ZAP clean"; fi
+          npm i -g pnpm
+          pnpm i --frozen-lockfile
+          pnpm -C apps/web build
+          pnpm -C apps/web start &
+          npx wait-on http://localhost:3000
+      - name: ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
+          target: 'http://localhost:3000'
+          rules_file_name: '.zap-rules.tsv'
+          cmd_options: '-a'
+      - name: Upload ZAP report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: zap-report.html

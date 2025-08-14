@@ -1,12 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
-  "project": [
-    "**/*.ts",
-    "**/*.tsx",
-    "!**/node_modules/**",
-    "!**/.next/**",
-    "!**/dist/**"
-  ],
+  "project": ["**/*.ts", "**/*.tsx", "!**/node_modules/**", "!**/.next/**", "!**/dist/**"],
   "ignoreExportsUsedInFile": true,
   "workspaces": { "ignoreDependencies": ["@types/*"] }
 }

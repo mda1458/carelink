@@ -1,9 +1,7 @@
-.DS_Store
-node_modules
-.next
-dist
-out
+# --- Add these lines to your existing .gitignore ---
+.turbo
+*.tsbuildinfo
+*.log
 coverage
-.env.local
-.env
-lhci_reports
+.lighthouseci
+

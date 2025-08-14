@@ -1,3 +1,15 @@
-import { defineConfig } from '@playwright/test';
-export default defineConfig({ testDir: './tests', fullyParallel: true, retries: 0, use: { baseURL: 'http://localhost:3000', trace: 'retain-on-failure' },
-  webServer: { command: 'pnpm start', url: 'http://localhost:3000', reuseExistingServer: true, timeout: 120000 } });
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+  reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
+  use: {
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure'
+  },
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } }
+  ]
+});

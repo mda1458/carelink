@@ -1,3 +1,4 @@
 #!/bin/sh
-# Run lint-staged without sourcing deprecated husky internals
+. "$(dirname "$0")/_/husky.sh"
+
 pnpm lint-staged

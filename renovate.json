@@ -1,22 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":semanticCommits",
+    ":dependencyDashboard",
+    ":preserveSemverRanges"
   ],
-  "labels": [
-    "deps"
-  ],
+  "schedule": ["after 8pm on sunday"],
+  "prHourlyLimit": 2,
+  "timezone": "America/New_York",
   "rangeStrategy": "bump",
-  "schedule": [
-    "before 6am on monday"
-  ],
   "packageRules": [
-    {
-      "matchManagers": [
-        "npm"
-      ],
-      "automerge": false,
-      "prPriority": 0
-    }
+    { "matchUpdateTypes": ["minor", "patch"], "automerge": true },
+    { "matchManagers": ["npm"], "labels": ["deps"] }
   ]
 }

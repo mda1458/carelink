@@ -3,7 +3,6 @@
 This repo has been patched with Phase 1–3 enhancements.
 
 ## Files added/updated
-
 - added: packages/utils/src/validate.ts
 - added: packages/utils/src/csrf.ts
 - added: packages/utils/src/logger.ts
@@ -41,12 +40,11 @@ This repo has been patched with Phase 1–3 enhancements.
 - added: README_phase3_patch.md
 
 ## Next steps (run locally)
-
-1. Install packages:
+1) Install packages:
    pnpm add @upstash/ratelimit @upstash/redis pino zod
    pnpm add -D @axe-core/playwright @playwright/test @lhci/cli knip @stryker-mutator/core gitleaks @asteasolutions/zod-to-openapi openapi-typescript @next/bundle-analyzer
 
-2. Env vars (local + prod):
+2) Env vars (local + prod):
    UPSTASH_REDIS_REST_URL=
    UPSTASH_REDIS_REST_TOKEN=
    LOG_LEVEL=info
@@ -56,21 +54,20 @@ This repo has been patched with Phase 1–3 enhancements.
    OTEL_EXPORTER_OTLP_ENDPOINT= (optional)
    OTEL_EXPORTER_OTLP_HEADERS= (optional)
 
-3. If you already have apps/web/middleware.ts, compare with middleware.ts.rate-limit.merge and integrate.
+3) If you already have apps/web/middleware.ts, compare with middleware.ts.rate-limit.merge and integrate.
 
-4. For bundle analyzer, wrap apps/web/next.config.\* with @next/bundle-analyzer as described in README_phase3_patch.md.
+4) For bundle analyzer, wrap apps/web/next.config.* with @next/bundle-analyzer as described in README_phase3_patch.md.
 
-5. Run the gates:
+5) Run the gates:
    pnpm typecheck && pnpm lint
    pnpm -C apps/web dev (in one terminal)
    npx playwright install --with-deps && pnpm e2e
    pnpm lhci
    pnpm openapi:build
 
-6. Commit all changes on a feature branch and open a PR. CI should show Lighthouse/Playwright/Gitleaks/Snyk.
+6) Commit all changes on a feature branch and open a PR. CI should show Lighthouse/Playwright/Gitleaks/Snyk.
 
 ## Phase 4: Finalization files added
-
 - added: .zap-rules.tsv
 - added: commitlint.config.cjs
 - added: .lintstagedrc.json
@@ -94,10 +91,7 @@ This repo has been patched with Phase 1–3 enhancements.
 - added: docs/adr/0000-template.md
 
 ### After pulling this branch, run:
-
 pnpm add -D @commitlint/config-conventional @commitlint/cli husky lint-staged prettier eslint cspell
-pnpm add -D zaproxy/actions-common @zapier/wait-on # optional
-
+pnpm add -D zaproxy/actions-common @zapier/wait-on  # optional
 # Initialize husky hooks
-
 pnpm prepare

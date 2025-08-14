@@ -2,10 +2,7 @@
  * Aggregate and export your Zod schemas here.
  * Example user/login route schema included.
  */
-import { extendZodWithOpenApi } from "@asteasolutions/zod-to-openapi";
 import { z } from "zod";
-
-extendZodWithOpenApi(z);
 
 export const LoginRequest = z.object({
   email: z.string().email(),
